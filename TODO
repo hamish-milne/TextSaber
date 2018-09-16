@@ -1,0 +1,11 @@
+☐ Command line arguments and usage
+✔ Intro silence @done(18-09-16 23:13)
+☐ Better error reporting
+☐ Comments
+☐ Expanded view
+☐ Canonical/non-canonical BPM
+☐ Bezier curves/trace preview?
+☐ Obstacles: [<cornerA><cornerB><length>] e.g. [qx5]
+☐ Bombs (probably *) e.g. *asdf
+☐ Custom key configuration e.g. dvorak
+☐ Difficulty levels, probably with '|'
