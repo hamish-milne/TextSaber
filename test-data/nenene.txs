@@ -1,7 +1,7 @@
-;bpm = 170 ;measure = 2 ;audio_file=STARTails - ne! ne! ne! (Slow Start OP).ogg ;intro_silence=3
+;bpm = 170 ;measure = 2
 2c ;proc = introP1, 15
 
-8Sd
+8Sd [qz3][rv3]
 2X
 
 8Sd
@@ -10,7 +10,7 @@
 
 8Sd
 
-1Z
+1Z [qr4]
 3v
 9S
 7d

@@ -5,7 +5,7 @@
 ☐ Expanded view
 ☐ Canonical/non-canonical BPM
 ☐ Bezier curves/trace preview?
-☐ Obstacles: [<cornerA><cornerB><length>] e.g. [qx5]
-☐ Bombs (probably *) e.g. *asdf
+✔ Obstacles: [<cornerA><cornerB><length>] e.g. [qx5] @done(18-09-17 23:46)
+✔ Bombs (probably *) e.g. *asdf @done(18-09-17 22:56)
 ☐ Custom key configuration e.g. dvorak
 ☐ Difficulty levels, probably with '|'

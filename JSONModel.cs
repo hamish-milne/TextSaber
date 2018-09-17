@@ -53,6 +53,7 @@ namespace TextSaber.JSONModel
 		public double _shufflePeriod = 0.5;
 		public List<Event> _events = new List<Event>();
 		public List<Note> _notes = new List<Note>();
+		public List<Obstacle> _obstacles = new List<Obstacle>();
 	}
 
 	public class Event
@@ -76,7 +77,7 @@ namespace TextSaber.JSONModel
 		public double _time;
 		public int _lineIndex;
 		public int _type;
-		public int _duration;
+		public double _duration;
 		public int _width;
 	}
 }
