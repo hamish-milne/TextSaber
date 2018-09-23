@@ -8,6 +8,7 @@ namespace TextSaber
 	public struct Note
 	{
 		public double Time;
+		public int DifficultyMask;
 		public int X;
 		public int Y;
 		public NoteColor Color;
@@ -17,6 +18,7 @@ namespace TextSaber
 	public struct Obstacle
 	{
 		public double Time;
+		public int DifficultyMask;
 		public int X1, Y1, X2, Y2;
 		public double Length;
 	}
@@ -169,9 +171,28 @@ namespace TextSaber
 		public class LevelConfig
 		{
 			public string AudioFile { get; set; }
+			public string Title { get; set; }
+			public string SubTitle { get; set; }
+			public string Author { get; set; }
 			public double OffsetMs { get; set; } = 0;
 			public double AudioDelay { get; set; } = 0;
 			public double BPM { get; set; } = double.NaN;
+		}
+
+		private static void SetString(FileFrame frame, string name, Action<string> set)
+		{
+			if (frame.VariableSets.TryGetValue(name, out var str))
+			{
+				set(str);
+			}
+		}
+
+		private static void SetDouble(FileFrame frame, string name, Action<double> set)
+		{
+			if (frame.VariableSets.TryGetValue(name, out var str))
+			{
+				set(double.Parse(str));
+			}
 		}
 
 		public static IEnumerable<object> EmitNotes(
@@ -193,37 +214,22 @@ namespace TextSaber
 			{
 				double frameOffset = 0;
 				var frame = frameA[i];
-				if (frame.VariableSets.TryGetValue("bpm", out var newBpm))
-				{
-					state.InitialBPM = double.Parse(newBpm);
-					config.BPM = state.InitialBPM;
-				}
-				if (frame.VariableSets.TryGetValue("intro_silence", out var introSilence))
-				{
-					var value = double.Parse(introSilence);
-					state.Time += state.InitialBPM * value / 60;
+
+				SetDouble(frame, "set_time", value => state.Time = config.AudioDelay + value);
+				SetDouble(frame, "bpm", value => config.BPM = value);
+				SetDouble(frame, "intro_silence", value => {
+					state.Time += config.BPM * value / 60;
 					config.AudioDelay += value;
-				}
-				if (frame.VariableSets.TryGetValue("audio_file", out var audioFile))
-				{
-					config.AudioFile = audioFile;
-				}
-				if (frame.VariableSets.TryGetValue("audio_offset_ms", out var audioOffset))
-				{
-					config.OffsetMs = double.Parse(audioOffset);
-				}
-				if (frame.VariableSets.TryGetValue("measure", out var newMeasure))
-				{
-					state.Measure = double.Parse(newMeasure);
-				}
-				if (frame.VariableSets.TryGetValue("offset", out var offset))
-				{
-					state.Time += (1.0 / state.Measure) * double.Parse(offset);
-				}
-				if (frame.VariableSets.TryGetValue("frame_offset", out var newFrameOffset))
-				{
-					frameOffset = double.Parse(newFrameOffset);
-				}
+				});
+				SetString(frame, "audio_file", value => config.AudioFile = value);
+				SetString(frame, "title", value => config.Title = value);
+				SetString(frame, "subtitle", value => config.SubTitle = value);
+				SetString(frame, "author", value => config.Author = value);
+				SetDouble(frame, "audio_offset_ms", value => config.OffsetMs = value);
+				SetDouble(frame, "measure", value => state.Measure = value);
+				SetDouble(frame, "offset", value => state.Time += (1.0 / state.Measure) * value);
+				SetDouble(frame, "frame_offset", value => frameOffset = value);
+	
 				if (allowDefinitions && frame.VariableSets.TryGetValue("proc", out var procArgs))
 				{
 					var tokens = procArgs.Split(',');

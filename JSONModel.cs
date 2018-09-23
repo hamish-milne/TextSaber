@@ -25,8 +25,8 @@ namespace TextSaber.JSONModel
 		public string songSubName;
 		public string authorName;
 		public double beatsPerMinute;
-		public double previewStartTime;
-		public double previewDuration;
+		public double previewStartTime = 12;
+		public double previewDuration = 10;
 		public string coverImagePath;
 		public BSEnvironment environmentName;
 		public List<LevelInfo> difficultyLevels = new List<LevelInfo>();

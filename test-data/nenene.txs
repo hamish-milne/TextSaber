@@ -1,5 +1,9 @@
-;bpm = 170 ;measure = 2
-2c ;proc = introP1, 15
+;bpm = 170 ;intro_silence = 2000
+;title = foo
+;subtitle = bar
+;author = hamish
+;set_time = 0 ;measure = 2
+2c ;proc = introP1, 15 
 
 8Sd [qz3][rv3]
 2X
